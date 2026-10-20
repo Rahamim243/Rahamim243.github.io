@@ -11,12 +11,11 @@
             font-family: 'Segoe UI', system-ui, sans-serif; 
             margin: 0; 
             padding: 0; 
-            text-align: center; 
         }
         header { 
-            padding: 60px 20px; 
+            padding: 40px 20px; 
             border-bottom: 1px solid #eeeeee; 
-            background-color: #ffffff;
+            text-align: center;
         }
         h1 { 
             font-size: 3.5rem; 
@@ -27,79 +26,109 @@
         }
         .subtitle { 
             color: #666666; 
-            font-size: 1.3rem; 
-            margin-top: 15px; 
-            letter-spacing: 1px;
+            font-size: 1.2rem; 
+            margin-top: 10px; 
         }
         .container { 
             max-width: 1200px; 
-            margin: 60px auto; 
-            padding: 0 30px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
         }
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-            text-transform: uppercase;
+        .products-section {
+            flex: 3;
+            min-width: 300px;
+        }
+        .cart-section {
+            flex: 1;
+            min-width: 280px;
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            padding: 20px;
+            border-radius: 12px;
+            height: fit-content;
         }
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 40px; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 30px; 
         }
         .card { 
             background: #ffffff; 
             border: 1px solid #eeeeee; 
-            padding: 40px 20px; 
+            padding: 30px 20px; 
             border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            text-align: center;
             transition: all 0.3s ease;
         }
         .card:hover { 
             border-color: #000000; 
-            transform: translateY(-8px); 
-            box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+            transform: translateY(-5px); 
         }
         .icon { 
-            font-size: 6rem; 
-            margin-bottom: 25px; 
+            font-size: 5rem; 
+            margin-bottom: 20px; 
             display: block; 
-        }
-        .card h3 {
-            font-size: 1.5rem;
-            margin: 15px 0 10px 0;
-            font-weight: 700;
-        }
-        .card p {
-            color: #777777;
-            font-size: 1rem;
-            margin-bottom: 20px;
         }
         .price { 
             color: #000000; 
             font-weight: 800; 
             font-size: 1.3rem;
+            margin: 15px 0;
         }
-        .footer-area {
-            background-color: #fafafa;
-            padding: 60px 20px;
-            margin-top: 80px;
-            border-top: 1px solid #eeeeee;
-        }
-        .btn { 
-            display: inline-block; 
+        .btn-add { 
             background: #000000; 
             color: #ffffff; 
-            padding: 15px 45px; 
+            padding: 10px 25px; 
             font-weight: bold; 
-            text-decoration: none; 
+            border: none;
             border-radius: 50px; 
-            font-size: 1.1rem;
-            transition: background 0.3s ease; 
+            cursor: pointer;
+            transition: background 0.3s;
         }
-        .btn:hover { 
-            background: #333333; 
+        .btn-add:hover { background: #333333; }
+        
+        /* עיצוב העגלה */
+        .cart-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 10px;
+            margin-top: 0;
         }
+        .cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eeeeee;
+            font-size: 0.95rem;
+        }
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .btn-checkout {
+            display: block;
+            background: #25D366; /* צבע וואטסאפ */
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+        }
+        .btn-checkout:hover { background: #20ba59; }
     </style>
 </head>
 <body>
@@ -110,34 +139,95 @@
     </header>
 
     <div class="container">
-        <div class="section-title">הקולקציה החדשה</div>
-        <div class="grid">
-            <div class="card">
-                <span class="icon">🧥</span>
-                <h3>ג'קט יוקרה שחור</h3>
-                <p>מהדורה מוגבלת מחומרים עמידים</p>
-                <p class="price">₪450</p>
+        <!-- אזור המוצרים -->
+        <div class="products-section">
+            <div class="grid">
+                <div class="card">
+                    <span class="icon">🧥</span>
+                    <h3>ג'קט יוקרה שחור</h3>
+                    <p class="price">₪450</p>
+                    <button class="btn-add" onclick="addToCart('ג\'קט יוקרה שחור', 450)">הוסף לעגלה</button>
+                </div>
+                <div class="card">
+                    <span class="icon">👕</span>
+                    <h3>חולצת אוברסייז</h3>
+                    <p class="price">₪180</p>
+                    <button class="btn-add" onclick="addToCart('חולצת אוברסייז', 180)">הוסף לעגלה</button>
+                </div>
+                <div class="card">
+                    <span class="icon">👖</span>
+                    <h3>מכנסי קרגו</h3>
+                    <p class="price">₪290</p>
+                    <button class="btn-add" onclick="addToCart('מכנסי קרגו', 290)">הוסף לעגלה</button>
+                </div>
             </div>
-            <div class="card">
-                <span class="icon">👕</span>
-                <h3>חולצת אוברסייז</h3>
-                <p>100% כותנה סרוקה במשקל כבד</p>
-                <p class="price">₪180</p>
+        </div>
+
+        <!-- אזור עגלת הקניות -->
+        <div class="cart-section">
+            <h3 class="cart-title">העגלה שלך</h3>
+            <ul id="cart-list" class="cart-items">
+                <p style="color: #aaa; text-align: center;">העגלה ריקה</p>
+            </ul>
+            <div class="cart-total">
+                <span>סה"כ לתשלום:</span>
+                <span id="total-price">₪0</span>
             </div>
-            <div class="card">
-                <span class="icon">👖</span>
-                <h3>מכנסי קרגו</h3>
-                <p>גזרה מושלמת עם כיסים פונקציונליים</p>
-                <p class="price">₪290</p>
-            </div>
+            <a href="#" class="btn-checkout" onclick="checkout(event)">שלח הזמנה לוואטסאפ</a>
         </div>
     </div>
 
-    <div class="footer-area">
-        <h3>הצטרפו לקהילה שלנו</h3>
-        <p>עדכונים על דרופים חדשים והנחות בלעדיות</p>
-        <a href="https://instagram.com" class="btn" target="_blank">עקבו באינסטגרם</a>
-    </div>
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function addToCart(name, price) {
+            cart.push({name: name, price: price});
+            total += price;
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartList = document.getElementById('cart-list');
+            const totalSpan = document.getElementById('total-price');
+            
+            if (cart.length === 0) {
+                cartList.innerHTML = '<p style="color: #aaa; text-align: center;">העגלה ריקה</p>';
+                totalSpan.innerText = '₪0';
+                return;
+            }
+
+            cartList.innerHTML = '';
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'cart-item';
+                li.innerHTML = `<span>${item.name}</span> <span>₪${item.price}</span>`;
+                cartList.appendChild(li);
+            });
+
+            totalSpan.innerText = `₪${total}`;
+        }
+
+        function checkout(event) {
+            event.preventDefault();
+            if (cart.length === 0) {
+                alert('העגלה שלך ריקה!');
+                return;
+            }
+
+            // החלף את ה-0500000000 במספר הוואטסאפ האמיתי שלך לקבלת ההזמנות!
+            const phoneNumber = "972500000000"; 
+            
+            let message = "שלום Chapo Fashion, אני רוצה להזמין מהאתר:\n\n";
+            cart.forEach(item => {
+                message += `- ${item.name} (₪${item.price})\n`;
+            });
+            message += `\n*סה"כ לתשלום: ₪${total}*`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me{phoneNumber}?text=${encodedMessage}`, '_blank');
+        }
+    </script>
 
 </body>
 </html>
