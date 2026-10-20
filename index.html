@@ -29,31 +29,39 @@
             font-size: 1.2rem; 
             margin-top: 10px; 
         }
-        .container { 
-            max-width: 1200px; 
-            margin: 40px auto; 
-            padding: 0 20px; 
+        
+        /* אזור ראשי מסודר */
+        .main-layout {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
             display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
+            flex-direction: row-reverse; /* דוחף את העגלה לשמאל ואת המוצרים לימין */
+            gap: 40px;
         }
+        
+        /* אזור המוצרים מימין */
         .products-section {
             flex: 3;
-            min-width: 300px;
         }
+        
+        /* עגלת קניות מקובעת משמאל למעלה */
         .cart-section {
             flex: 1;
-            min-width: 280px;
+            min-width: 300px;
             background: #fafafa;
             border: 1px solid #eeeeee;
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             height: fit-content;
+            position: sticky;
+            top: 20px; /* נשארת למעלה כשגוללים */
         }
+        
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 30px; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 25px; 
         }
         .card { 
             background: #ffffff; 
@@ -86,32 +94,33 @@
             border: none;
             border-radius: 50px; 
             cursor: pointer;
+            width: 100%;
             transition: background 0.3s;
         }
         .btn-add:hover { background: #333333; }
         
-        /* עיצוב העגלה */
         .cart-title {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             border-bottom: 2px solid #000000;
             padding-bottom: 10px;
             margin-top: 0;
+            text-align: right;
         }
         .cart-items {
             list-style: none;
             padding: 0;
             margin: 20px 0;
+            text-align: right;
         }
         .cart-item {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid #eeeeee;
-            font-size: 0.95rem;
         }
         .cart-total {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 800;
             display: flex;
             justify-content: space-between;
@@ -119,10 +128,10 @@
         }
         .btn-checkout {
             display: block;
-            background: #25D366; /* צבע וואטסאפ */
+            background: #25D366;
             color: #ffffff;
             text-align: center;
-            padding: 15px;
+            padding: 14px;
             font-weight: bold;
             text-decoration: none;
             border-radius: 8px;
@@ -138,8 +147,21 @@
         <p class="subtitle">PREMIUM STREETWEAR BRAND</p>
     </header>
 
-    <div class="container">
-        <!-- אזור המוצרים -->
+    <div class="main-layout">
+        <!-- אזור עגלת הקניות - עכשיו משמאל -->
+        <div class="cart-section">
+            <h3 class="cart-title">העגלה שלך</h3>
+            <ul id="cart-list" class="cart-items">
+                <p style="color: #aaa; text-align: center; margin: 0;">העגלה ריקה</p>
+            </ul>
+            <div class="cart-total">
+                <span>סה"כ לתשלום:</span>
+                <span id="total-price">₪0</span>
+            </div>
+            <a href="#" class="btn-checkout" onclick="checkout(event)">שלח הזמנה לוואטסאפ</a>
+        </div>
+
+        <!-- אזור המוצרים - עכשיו מימין -->
         <div class="products-section">
             <div class="grid">
                 <div class="card">
@@ -162,19 +184,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- אזור עגלת הקניות -->
-        <div class="cart-section">
-            <h3 class="cart-title">העגלה שלך</h3>
-            <ul id="cart-list" class="cart-items">
-                <p style="color: #aaa; text-align: center;">העגלה ריקה</p>
-            </ul>
-            <div class="cart-total">
-                <span>סה"כ לתשלום:</span>
-                <span id="total-price">₪0</span>
-            </div>
-            <a href="#" class="btn-checkout" onclick="checkout(event)">שלח הזמנה לוואטסאפ</a>
-        </div>
     </div>
 
     <script>
@@ -192,7 +201,7 @@
             const totalSpan = document.getElementById('total-price');
             
             if (cart.length === 0) {
-                cartList.innerHTML = '<p style="color: #aaa; text-align: center;">העגלה ריקה</p>';
+                cartList.innerHTML = '<p style="color: #aaa; text-align: center; margin: 0;">העגלה ריקה</p>';
                 totalSpan.innerText = '₪0';
                 return;
             }
@@ -215,7 +224,7 @@
                 return;
             }
 
-            // החלף את ה-0500000000 במספר הוואטסאפ האמיתי שלך לקבלת ההזמנות!
+            // החלף את ה-972500000000 במספר הוואטסאפ האמיתי שלך
             const phoneNumber = "972500000000"; 
             
             let message = "שלום Chapo Fashion, אני רוצה להזמין מהאתר:\n\n";
